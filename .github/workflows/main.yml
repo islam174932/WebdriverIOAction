@@ -64,7 +64,7 @@ jobs:
           path: gh-pages
 
       - name: Get Allure Report Action
-        uses: simple-elf/allure-report-action@master
+        uses: simple-elf/allure-report-action@main
         with:
           allure_results: allure-results
           gh_pages: gh-pages
