@@ -1,23 +1,41 @@
-name: WDIO-CI
+name: CI
+
 on:
   push:
-    branches: [ main]
+    branches: [main]
   pull_request:
-    branches: [ main]
+    branches: [main]
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Install Chromium
         run: sudo apt-get install chromium-browser
-      - uses: actions/checkout@v3
+      
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      
       - name: Install dependencies
         run: npm install
-      - name: Running  tests
-        run: npm run test
+
+      - name: Run demo script
+        run: npm run demo
+
+      - name: Run wdio script
+        run: npm run wdio
+
+      - name: Archive test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: test-results
+
