@@ -1,0 +1,7 @@
+{"level":"info","message":"This is an informational message."}
+{"level":"warn","message":"This is a warning message."}
+{"level":"error","message":"This is an error message."}
+{"level":"info","message":"This is an informational message.","timestamp":"2024-07-05T16:03:21.676Z"}
+{"level":"warn","message":"This is a warning message.","timestamp":"2024-07-05T16:03:21.687Z"}
+{"level":"error","message":"This is an error message.","timestamp":"2024-07-05T16:03:21.687Z"}
+{"level":"debug","message":"This is a debug message.","timestamp":"2024-07-05T16:03:21.688Z"}
