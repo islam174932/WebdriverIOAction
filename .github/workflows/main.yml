@@ -1,12 +1,7 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -65,7 +60,7 @@ jobs:
           path: gh-pages
 
       - name: Get Allure Report Action
-        uses: simple-elf/allure-report-action@master
+        uses: simple-elf/allure-report-action@main
         if: always()
         id: allure-report
         with:
@@ -83,4 +78,5 @@ jobs:
         with:
           publish_branch: gh-pages
           publish_dir: allure-history
+
 
