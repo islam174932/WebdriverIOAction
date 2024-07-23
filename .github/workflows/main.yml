@@ -1,4 +1,4 @@
-name: WDIO-CI
+name: CIs
 
 on:
   push:
@@ -10,22 +10,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    env:
-      RUNNER: ${{ secrets.RUNNER }}
-      LOG_LEVEL: ${{ secrets.LOG_LEVEL }}
-      TEST_NOP_ADMIN_USERNAME: ${{ secrets.TEST_NOP_ADMIN_USERNAME }}
-      TEST_NOP_ADMIN_PASSWORD: ${{ secrets.TEST_NOP_ADMIN_PASSWORD }}
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: main
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '16' # Specify the Node.js version you need
 
       - name: Install dependencies
         run: npm install
@@ -56,33 +52,6 @@ jobs:
         with:
           name: allure-report
           path: allure-report
-
-      - name: Checkout gh-pages
-        uses: actions/checkout@v3
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-
-      - name: Generate Allure Report with History
-        uses: simple-elf/allure-report-action@master
-        if: always()
-        id: allure-report
-        with:
-          allure_results: allure-results
-          gh_pages: gh-pages
-          allure_report: allure-report
-          allure_history: allure-history
-          keep_reports: 20
-
-      - name: Deploy to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          publish_dir: allure-report
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Clean up workspace
         run: git clean -fdx
